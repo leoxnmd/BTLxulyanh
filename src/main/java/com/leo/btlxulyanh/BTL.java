@@ -38,7 +38,7 @@ public class BTL extends JFrame {
         jbNegative.addActionListener(new ButtonListener());
         jbSepia.addActionListener(new ButtonListener());
     }
-
+//code iu java swing
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -302,15 +302,17 @@ public class BTL extends JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+// đừng quan tâm
 
     private void jbDecContrastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDecContrastActionPerformed
-        // TODO add your handling code here:
+// đừng quan tâm
     }//GEN-LAST:event_jbDecContrastActionPerformed
 
+    //sự kiện nút mở chọn ảnh
     private void jbOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOpenActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         FileFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
-//Attaching Filter to JFileChooser object
+
         fileChooser.setFileFilter(imageFilter);
         int returnValue = fileChooser.showOpenDialog(this);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -320,6 +322,7 @@ public class BTL extends JFrame {
         }
     }//GEN-LAST:event_jbOpenActionPerformed
 
+//nút làm mới ảnh
     private void jbResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbResetActionPerformed
         showImageChanged(de);
         scaleFactor = 1.0f;
@@ -327,7 +330,7 @@ public class BTL extends JFrame {
     }//GEN-LAST:event_jbResetActionPerformed
 
     private void jbSepiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSepiaActionPerformed
-        // TODO add your handling code here:
+        // đừng quan tâm
     }//GEN-LAST:event_jbSepiaActionPerformed
 
     public static void main(String args[]) {
@@ -346,13 +349,15 @@ public class BTL extends JFrame {
         }
     }
 
+    //class sự kiện chung cho các nút thay đổi ảnh
     class ButtonListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton temp = (JButton) e.getSource();
 
             if (temp.equals(jbIncBrighten)) {//tăng sáng
-                brighten = true;
+                brighten = true;//flag kiểm tra chọn tăng hay giảm
                 changeOffSet();
                 System.out.println(offset + "=offset");
                 rescale();
@@ -383,7 +388,9 @@ public class BTL extends JFrame {
             }
         }
     }
+    //
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    //đống này khai báo tên của các button, jpanel,...
     private javax.swing.JLabel displayImageRoot;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -404,13 +411,15 @@ public class BTL extends JFrame {
     private javax.swing.JButton jbSepia;
     private javax.swing.JLabel jlDisplayImage;
     // End of variables declaration//GEN-END:variables
-
+///
+    //load ảnh vào BufferedImage và show ảnh lên
     public void loadImage(String imageUrl) {
         createBufferedImages();
         File file = new File(imageUrl);
         try {
             //load ảnh gốc
             BufferedImage img = ImageIO.read(file);
+
             Image dimg = img.getScaledInstance(
                     displayImageRoot.getWidth(),
                     displayImageRoot.getHeight(),
@@ -418,14 +427,14 @@ public class BTL extends JFrame {
             ImageIcon iconRoot = new ImageIcon(dimg);
             displayImageRoot.setIcon(iconRoot);
 
-            //load ảnh để thay đổi
+            //load ảnh vào BufferedImage để thay đổi
             biSrc = ImageIO.read(file);
             biDest = ImageIO.read(file);
             bi = ImageIO.read(file);
             cache = ImageIO.read(file);
             de = ImageIO.read(file);
 
-            showImageChanged(de);
+            showImageChanged(de);//show ảnh để thay đổi lên
             checkImg = true;
         } catch (IOException ex) {
             System.out.println("Exception while loading.");
@@ -438,6 +447,7 @@ public class BTL extends JFrame {
         }
     }
 
+    // thay đổi quy mô hoạt động trên màu sắc
     public void createBufferedImages() {
         biSrc = new BufferedImage(jlDisplayImage.getWidth(),
                 jlDisplayImage.getHeight(),
@@ -449,39 +459,46 @@ public class BTL extends JFrame {
         bi = biSrc;
     }
 
+    // thay đổi giá trị độ sáng từ bấm nút
     public void changeOffSet() {
-        if (checkImg == true) {
-            if (brighten) {
-                if (offset < 255) {
-                    offset = offset + 5.0f;
+        //tăng độ sáng trong khoảng -255->255 (- tối; + sáng)
+        if (checkImg ) {//nếu có ảnh
+            if (brighten) {//tăng
+                if (offset < 255) {//giới hạn tối đa 255
+                    offset = offset + 5.0f;//tăng lên 5.0f
                 }
-            } else {
-                if (offset > 0) {
-                    offset = offset - 5.0f;
+            } else {//giảm 
+
+                if (offset > -255) {//giới hạn nhỏ nhất -255
+                    offset = offset - 5.0f;//giảm độ sáng 5.0f
                 }
             }
         }
     }
 
+    // thay đổi giá trị tương phản từ bấm nút
     public void changeScaleFactor() {
-        if (checkImg == true) {
-            if (contrastInc) {
-                if (scaleFactor < 2) {
+        if (checkImg ) {
+            if (contrastInc) {//tăng tương phản
+                if (scaleFactor < 2) {//trên 2 nó sáng loá
                     scaleFactor = scaleFactor + 0.1f;
                 }
-            } else {
-                if (scaleFactor > 0) {
+            } else {//giảm tương phản
+                if (scaleFactor > 0) {//dưới không nó đen xì
                     scaleFactor = scaleFactor - 0.1f;
                 }
             }
         }
     }
 
+    //thực hiện thay đổi giá trị scaleFactor, offset cho ảnh
     public void rescale() {
-        if (checkImg == true) {
-            rescale = new RescaleOp(scaleFactor, offset, null);//giữ offset B (B tăng độ sáng)
-//scaleFactor : A thay đổi tăng tương phản
-            //là giá trị Offset 15 được sử dụng để thay đổi độ tương phản của hình ảnh
+        if (checkImg ) {
+            rescale = new RescaleOp(scaleFactor, offset, null);
+            //thực hiện thay đổi tỷ lệ từng pixel của dữ liệu trong hình ảnh nguồn 
+            //bằng cách nhân các giá trị mẫu cho mỗi pixel với tỷ lệ và sau đó thêm một phần bù đắp
+            // offset( tăng độ sáng)
+            //scaleFactor tăng tương phản
             rescale.filter(biSrc, biDest);
             bi = biDest;
             showImageChanged(bi);
@@ -489,24 +506,27 @@ public class BTL extends JFrame {
 
     }
 
+    //thực hiện đảo màu của ảnh
     public void changeColor(int c) {
-        if (checkImg == true) {
+        if (checkImg) {
             for (int x = 0; x < bi.getWidth(); x++) {
                 for (int y = 0; y < bi.getHeight(); y++) {
- int rgba = bi.getRGB(x, y);
-                            Color col = new Color(rgba, true);
+                    //duyệt từng pixel của ảnh
+                    int rgba = bi.getRGB(x, y);//lấy giá  trị RGB của pixel 
+                    Color col = new Color(rgba, true);
                     switch (c) {
                         case 1 -> {  //âm màu
-                           
                             col = new Color(
                                     255 - col.getRed(),
                                     255 - col.getGreen(),
                                     255 - col.getBlue());
-                            cache.setRGB(x, y, col.getRGB());
+                             //màu từ 0-255 
+                            //dùng 255- để đảo màu này sang màu khác
+                            cache.setRGB(x, y, col.getRGB());//set màu mới cho BufferedImage
                         }
                         case 2 -> { //thang xám
-                          
-                            int agv = (col.getRed() + col.getGreen() + col.getBlue()) / 3;
+
+                            int agv = (col.getRed() + col.getGreen() + col.getBlue()) / 3;//lấy giá trị trung bình của rgb để ra màu xám
                             int r = agv;
                             int g = agv;
                             int b = agv;
@@ -516,16 +536,17 @@ public class BTL extends JFrame {
                             cache.setRGB(x, y, col.getRGB());
                         }
                         case 3 -> { //nâu đỏ
-                            
+
                             int a = col.getAlpha();
                             int r = col.getRed();
                             int g = col.getGreen();
                             int b = col.getBlue();
-                            
+
                             int newRed = (int) (0.393 * r + 0.769 * g + 0.189 * b);
                             int newGreen = (int) (0.349 * r + 0.686 * g + 0.168 * b);
                             int newBlue = (int) (0.272 * r + 0.534 * g + 0.131 * b);
-                            // check
+                            //công thức màu này dựa trên thuật toán đảo màu Sepia
+                            // check gtri mới không vượt qua 255
                             if (newRed > 255) {
                                 r = 255;
                             } else {
@@ -553,12 +574,13 @@ public class BTL extends JFrame {
         }
     }
 
+    //thực hiện thay đổi và hiển thị ảnh lên
     public void showImageChanged(BufferedImage bImg) {
         displayImage = bImg.getScaledInstance(
                 displayImageRoot.getWidth(),
                 displayImageRoot.getHeight(),
-                Image.SCALE_SMOOTH);
-        iconChange = new ImageIcon(displayImage);
+                Image.SCALE_SMOOTH);//set kích thước để ảnh hiển thị
+        iconChange = new ImageIcon(displayImage);//dùng imageicon để hiển thị ảnh vào label
         jlDisplayImage.setIcon(iconChange);
     }
 }
