@@ -36,6 +36,7 @@ public class BTL extends JFrame {
         jbIncContrast.addActionListener(new ButtonListener());
         jbGrey.addActionListener(new ButtonListener());
         jbNegative.addActionListener(new ButtonListener());
+        jbSepia.addActionListener(new ButtonListener());
     }
 
     @SuppressWarnings("unchecked")
@@ -60,6 +61,7 @@ public class BTL extends JFrame {
         jPanel7 = new javax.swing.JPanel();
         jbGrey = new javax.swing.JButton();
         jbNegative = new javax.swing.JButton();
+        jbSepia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -219,6 +221,13 @@ public class BTL extends JFrame {
         jbNegative.setText("Negative");
         jbNegative.setToolTipText("");
 
+        jbSepia.setText("Sepia");
+        jbSepia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSepiaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -227,17 +236,20 @@ public class BTL extends JFrame {
                 .addContainerGap(32, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jbGrey, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbNegative, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jbNegative, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbSepia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(29, 29, 29))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbGrey)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jbSepia)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbNegative)
-                .addGap(19, 19, 19))
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -260,16 +272,17 @@ public class BTL extends JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -313,6 +326,10 @@ public class BTL extends JFrame {
         offset = 0;
     }//GEN-LAST:event_jbResetActionPerformed
 
+    private void jbSepiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSepiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbSepiaActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new RunnableImpl());
@@ -330,9 +347,6 @@ public class BTL extends JFrame {
     }
 
     class ButtonListener implements ActionListener {
-
-        boolean c = false;
-
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton temp = (JButton) e.getSource();
@@ -358,12 +372,13 @@ public class BTL extends JFrame {
                 System.out.println(scaleFactor + "=scaleF");
                 rescale();
             } else if (temp.equals(jbGrey)) {//thang xám
-                c = false;
-                changeColor(c);
+                changeColor(2);
                 System.out.println("Grey scale");
-            } else if (temp.equals(jbNegative)) {//đảo màu
-                c = true;
-                changeColor(c);
+            } else if (temp.equals(jbSepia)) {// nâu đỏ
+                changeColor(3);
+                System.out.println("Sepia");
+            } else if (temp.equals(jbNegative)) {// màu âm bản
+                changeColor(1);
                 System.out.println("Negative");
             }
         }
@@ -386,6 +401,7 @@ public class BTL extends JFrame {
     private javax.swing.JButton jbNegative;
     private javax.swing.JButton jbOpen;
     private javax.swing.JButton jbReset;
+    private javax.swing.JButton jbSepia;
     private javax.swing.JLabel jlDisplayImage;
     // End of variables declaration//GEN-END:variables
 
@@ -473,29 +489,63 @@ public class BTL extends JFrame {
 
     }
 
-    public void changeColor(boolean c) {
+    public void changeColor(int c) {
         if (checkImg == true) {
             for (int x = 0; x < bi.getWidth(); x++) {
                 for (int y = 0; y < bi.getHeight(); y++) {
-                    if (c) {
-                        int rgba = bi.getRGB(x, y);
-                        Color col = new Color(rgba, true);
-                        col = new Color(
-                                255 - col.getRed(),
-                                255 - col.getGreen(),
-                                255 - col.getBlue());
-                        cache.setRGB(x, y, col.getRGB());
-                    } else {
-                        int rgba = bi.getRGB(x, y);
-                        Color col = new Color(rgba, true);
-                        int agv = (col.getRed() + col.getGreen() + col.getBlue()) / 3;
-                        int r = agv;
-                        int g = agv;
-                        int b = agv;
+ int rgba = bi.getRGB(x, y);
+                            Color col = new Color(rgba, true);
+                    switch (c) {
+                        case 1 -> {  //âm màu
+                           
+                            col = new Color(
+                                    255 - col.getRed(),
+                                    255 - col.getGreen(),
+                                    255 - col.getBlue());
+                            cache.setRGB(x, y, col.getRGB());
+                        }
+                        case 2 -> { //thang xám
+                          
+                            int agv = (col.getRed() + col.getGreen() + col.getBlue()) / 3;
+                            int r = agv;
+                            int g = agv;
+                            int b = agv;
 //                        int rgb = (col.getAlpha() << 24) | (r << 16) | (g << 8) | b;
 //                        cache.setRGB(x, y, rgb);
-                        col = new Color(r, g, b);
-                        cache.setRGB(x, y, col.getRGB());
+                            col = new Color(r, g, b);
+                            cache.setRGB(x, y, col.getRGB());
+                        }
+                        case 3 -> { //nâu đỏ
+                            
+                            int a = col.getAlpha();
+                            int r = col.getRed();
+                            int g = col.getGreen();
+                            int b = col.getBlue();
+                            
+                            int newRed = (int) (0.393 * r + 0.769 * g + 0.189 * b);
+                            int newGreen = (int) (0.349 * r + 0.686 * g + 0.168 * b);
+                            int newBlue = (int) (0.272 * r + 0.534 * g + 0.131 * b);
+                            // check
+                            if (newRed > 255) {
+                                r = 255;
+                            } else {
+                                r = newRed;
+                            }
+                            if (newGreen > 255) {
+                                g = 255;
+                            } else {
+                                g = newGreen;
+                            }
+                            if (newBlue > 255) {
+                                b = 255;
+                            } else {
+                                b = newBlue;
+                            }
+                            col = new Color(r, g, b, a);
+                            cache.setRGB(x, y, col.getRGB());
+                        }
+                        default -> {
+                        }
                     }
                 }
             }
