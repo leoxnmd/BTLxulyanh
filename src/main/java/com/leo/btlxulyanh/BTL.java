@@ -325,9 +325,11 @@ public class BTL extends JFrame {
 
     //nút làm mới ảnh
     private void jbResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbResetActionPerformed
-        showImageChanged(de);
-        scaleFactor = 1.0f;
-        offset = 0;
+       if(checkImg) {
+           showImageChanged(de);
+           scaleFactor = 1.0f;
+           offset = 0;
+       }
     }//GEN-LAST:event_jbResetActionPerformed
 
     private void jbSepiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSepiaActionPerformed
